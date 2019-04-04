@@ -25,7 +25,7 @@ SECRET_KEY = '-9n4_myg=j8sciphv2stm5(6lzyx^tp1^v^h6d9n5pq5+i3jc@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','ericbastida.pythonanywhere.com','18.237.38.31']
 
 
 # Application definition
@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'extra_views',
     'crispy_forms',
-    
     'images',
 ]
 

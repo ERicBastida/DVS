@@ -26,11 +26,12 @@
     </thead>
     <tbody>
       {% for file2 in Files2 %}
-        <tr>
+        <tr row-id="{{ file2.pk }}">
           <td>
             
             <div class="checkbox">
-                <label><input type="checkbox" value=""></label>
+                <label></label>
+                <input type="checkbox" onclick="setorder(this)"  value="">
             </div>
             
           </td>
@@ -44,12 +45,16 @@
               <button type="submit" class="btn btn-danger btn-sm">Delete</button>
             </form>
           </td>
+          <td>
+
+              <button  id="botonDetail"  role="button" onclick='preview(this,"{{ file2.imagen2.url }}")' class="btn btn-info btn-sm">View file</button>
+
+          </td>
           
         </tr>
+      {% empty %}
+                    <tr><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp&nbspEmpty list&nbsp&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td></tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-  <p class="text-center">
-    <input type="submit" class="btn btn-info" value="Submit">
-  </p>

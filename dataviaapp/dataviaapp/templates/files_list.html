@@ -18,8 +18,7 @@
    {% endblock %}
   
 
-<div class="table-responsive">
-
+<div class="table-responsive ">
   <table class="table mb-0">
     <thead>
       <tr>
@@ -28,20 +27,18 @@
         <th >uploaded</th>
       </tr>
     </thead>
-    <tbody>
-      {% for file in Files %}
-        <tr>
-          <td>
-            
-            <div class="checkbox">
-                <label><input type="checkbox" value=""></label>
-            </div>
-            
-          </td>
-          <div class="thumbnail">
-          <td> <img src= '{{ file.imagen.url }}' class='img-responsive' style="width:100px;" /></td></div>
+    <tbody >
 
-            
+      {% for file in Files %}
+        <tr row-id="{{ file.pk }}">
+          <td style="overflow:hidden;">
+            <div class="checkbox">
+                <label></label>
+                <input type="checkbox" onclick="setorder(this)" value="">
+            </div>
+          </td>
+          <div class="thumbnail hidden-md" style="overflow:hidden;" >
+          <td style="overflow:hidden;"> <img src= '{{ file.imagen.url }}' class='img-responsive' style="width:100px;" /></td></div>
           <td> <a href="{{ file.imagen.url }}"  target="{{ file.imagen.url }}">  {{ file.imagen.url }} </a>  </td>
           <td>{{ file.timestamp }}</td>
           <td>
@@ -51,22 +48,16 @@
             </form>
           </td>
           <td>
-            <form method="post" action="{% url 'detail_file' file.pk %}">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-info btn-sm">See Video</button>
-            </form>
+              <button  id="botonDetail"  role="button" onclick='preview(this,"{{ file.imagen.url }}")' class="btn btn-info btn-sm">View file</button>
           </td>
-
-
-          
         </tr>
+      {% empty %}
+          <tr><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp&nbspEmpty list&nbsp&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td><td>&nbsp&nbsp</td></tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-  <p class="text-center">
-    <input type="submit" class="btn btn-info" value="Submit">
-  </p>
+
 
   
 

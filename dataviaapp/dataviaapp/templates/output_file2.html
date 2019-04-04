@@ -1,0 +1,73 @@
+
+{% extends 'base.html'%}
+
+
+{% block content %}
+
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+  {% block content_header %}
+    <h1 class="row justify-content-center text-primary" >Processed Files 2</h1>
+    <div class="messages">
+        {% if messages %}
+          {% for message in messages %}
+            <p class="alert alert-{{ message.tags }}">
+              {{ message }}
+            </p>
+          {% endfor %}
+
+        {% endif %}
+        </div>
+   {% endblock %}
+
+
+<div class="table-responsive">
+  <table class="table table-striped mb-0">
+    <thead>
+      <tr>
+        <th></th>
+        <th class="row justify-content-center" >File</th>
+        <th >uploaded</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for file in FilesOutput2 %}
+        <div class="row-output" >
+            <tr row-id="{{ file.pk }}">
+                <div class="thumbnail">
+                    <td> <img src= '{{ file.imagenOutput2.url }}' class='img-responsive' style="width:100px;" /></td>
+                </div>
+                <td> <a href="{{ file.imagenOutput2.url }}"  target="{{ file.imagenOutput2.url }}">  {{ file.imagenOutput2.url }} </a>  </td>
+                <td>{{ file.timestamp }}</td>
+                  <td>
+                    <form method="post" action="{% url 'delete_file2_output' file.pk %}">
+                      {% csrf_token %}
+                      <button type="submit"  class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                  </td>
+                  <td>
+                      <button  id="botonDetail"  role="button" onclick='preview_output_pf(this,"{{ file.imagenOutput2.url }}", "{{ file.path_file_1 }}", "{{ file.path_file_2 }}" )' class="btn btn-info btn-sm">View file</button>
+                  </td>
+            </tr>
+            {# Second row (First Input File)#}
+            <tr row-id="{{ file.pk }}">
+                  <div class="thumbnail">
+                    <td> <img src= '{{ file.path_file_1 }}' class='img-responsive' style="width:100px;" /></td>
+                  </div>
+                  <td> <a href="{{ file.path_file_1 }}"  target="{{ file.path_file_1 }}">  {{ file.path_file_1 }} </a>  </td>
+                  <td>First input file</td>
+                  <td>
+                  </td>
+                  <td><button  id="botonDetail"  style="display: none;" role="button" onclick='preview_output_in(this,"{{ file.path_file_1}}" )' class="btn btn-info btn-sm">View file</button></td>
+            </tr>
+        </div>
+      {% empty %}
+          <tr><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp No files&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><td>&nbsp&nbsp&nbsp&nbspto&nbsp&nbsp&nbsp&nbsp</td><td>show</td><td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td></tr>
+      {% endfor %}
+
+
+    </tbody>
+  </table>
+</div>
+{% endblock %}
